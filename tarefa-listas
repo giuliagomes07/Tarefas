@@ -1,0 +1,46 @@
+import 'dart:io';
+
+void main() {
+  List<double> temperaturas = [];
+  List<String> meses = [
+    'janeiro',
+    'fevereiro',
+    'março',
+    'abril',
+    'maio',
+    'junho',
+    'julho',
+    'agosto',
+    'setembro',
+    'outubro',
+    'novembro',
+    'dezembro'
+  ];
+
+  for (int i = 0; i < 12; i++) {
+    stdout.write('Digite a temperatura média de ${meses[i]}: ');
+    double temperatura = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+
+    while (temperatura <= 0 && temperatura >=0) {
+      print('Temperatura inválida, digite apenas números positivos ou negativos.');
+      stdout.write('Digite a temperatura média de ${meses[i]}: ');
+      temperatura = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+    }
+
+    temperaturas.add(temperatura);
+  }
+
+  double somaTemperaturas = 0.0;
+  for (double temperatura in temperaturas) {
+    somaTemperaturas += temperatura;
+  }
+  double mediaAnual = somaTemperaturas / temperaturas.length;
+
+  print('\nMédia anual das temperaturas: ${mediaAnual.toStringAsFixed(2)} graus \n');
+  for (int i = 0; i < 12; i++) {
+    if (temperaturas[i] > mediaAnual) {
+      print(
+          'A temperatura foi acima da média em ${meses[i]}, com uma média de ${temperaturas[i].toStringAsFixed(2)} graus');
+    }
+  }
+}
