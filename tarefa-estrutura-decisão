@@ -1,0 +1,50 @@
+import 'dart:io';
+
+void main() {
+  double? nota1;
+  while (nota1 == null || nota1 < 0) {
+    print("Digite a primeira nota (de 0 a 10):");
+    nota1 = double.tryParse(stdin.readLineSync()!) ?? -1;
+
+    if (nota1 < 0 || nota1 > 10) {
+      print("Nota inválida. Digite um número entre 0 e 10.");
+    }
+  }
+
+  double? nota2;
+  while (nota2 == null || nota2 < 0) {
+    print("Digite a segunda nota (de 0 a 10):");
+    nota2 = double.tryParse(stdin.readLineSync()!) ?? -1;
+
+    if (nota2 < 0 || nota2 > 10) {
+      print("Nota inválida. Digite um número entre 0 e 10.");
+    }
+  }
+
+  double media = (nota1 + nota2) / 2;
+  String conceito;
+  String status;
+
+  if (media >= 9.0) {
+    conceito = "A";
+    status = "APROVADO";
+  } else if (media >= 7.5) {
+    conceito = "B";
+    status = "APROVADO";
+  } else if (media >= 6.0) {
+    conceito = "C";
+    status = "APROVADO";
+  } else if (media >= 4.0) {
+    conceito = "D";
+    status = "REPROVADO";
+  } else {
+    conceito = "E";
+    status = "REPROVADO";
+  }
+
+  print("Nota 1: $nota1");
+  print("Nota 2: $nota2");
+  print("Média: ${media.toStringAsFixed(2)}");
+  print("Conceito: $conceito");
+  print("Status: $status");
+}
