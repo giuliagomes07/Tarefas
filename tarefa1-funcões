@@ -1,0 +1,45 @@
+import 'dart:io';
+
+String? dataPorExtenso(String data) {
+  final List<String> partes = data.split('/');
+  if (partes.length != 3) {
+    return null;
+  }
+  final dia = int.tryParse(partes[0]);
+  final mes = int.tryParse(partes[1]);
+  final ano = int.tryParse(partes[2]);
+  if (dia == null || mes == null || ano == null) {
+    return null;
+  }
+  if (dia < 1 || dia > 31 || mes < 1 || mes > 12 || ano < 1) {
+    return null;
+  }
+
+  final meses = [
+    'janeiro',
+    'fevereiro',
+    'março',
+    'abril',
+    'maio',
+    'junho',
+    'julho',
+    'agosto',
+    'setembro',
+    'outubro',
+    'novembro',
+    'dezembro'
+  ];
+  final mesPorExtenso = meses[mes - 1];
+  return '$dia de $mesPorExtenso de $ano';
+}
+
+void main() {
+  print("Escreva a data desejada no formato MM/DD/AAAA \n");
+  String? input = stdin.readLineSync();
+  String? resultado = dataPorExtenso(input.toString());
+  if(resultado != null){
+    print(resultado);
+  } else {
+    print("Data Inválida");
+  }
+}
