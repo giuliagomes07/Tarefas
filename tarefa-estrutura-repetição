@@ -1,0 +1,90 @@
+import 'dart:io';
+
+void main() {
+  int codigo, contador = 0;
+  double altura, peso, mediaAltura = 0, mediaPeso = 0;
+  int codigoMaisAlto = 0, codigoMaisBaixo = 0, codigoMaisGordo = 0, codigoMaisMagro = 0;
+  double alturaMaisAlto = 0, alturaMaisBaixo = double.infinity, pesoMaisGordo = 0, pesoMaisMagro = double.infinity;
+
+  while (true) {
+    print("Digite o código do cliente (ou 0 para sair):");
+    codigo = int.tryParse(stdin.readLineSync()!) ?? 0;
+
+    if (codigo == 0) {
+      break;
+    }
+
+    while (codigo < 0) {
+      print("Código inválido. Digite um valor positivo:");
+      codigo = int.tryParse(stdin.readLineSync()!) ?? 0;
+    }
+
+    print("Digite a altura do cliente em metros:");
+    altura = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+
+    while (altura <= 0) {
+      print("Altura inválida. Digite um valor positivo:");
+      altura = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+    }
+
+    print("Digite o peso do cliente em quilos:");
+    peso = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+
+    while (peso <= 0) {
+      print("Peso inválido. Digite um valor positivo:");
+      peso = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+    }
+
+    mediaAltura += altura;
+    mediaPeso += peso;
+    contador ++;
+
+    if (altura > alturaMaisAlto) {
+      alturaMaisAlto = altura;
+      codigoMaisAlto = codigo;
+    }
+
+    if (altura < alturaMaisBaixo) {
+      alturaMaisBaixo = altura;
+      codigoMaisBaixo = codigo;
+    }
+
+    if (peso > pesoMaisGordo) {
+      pesoMaisGordo = peso;
+      codigoMaisGordo = codigo;
+    }
+
+    if (peso < pesoMaisMagro) {
+      pesoMaisMagro = peso;
+      codigoMaisMagro = codigo;
+    }
+  }
+
+  if (codigoMaisAlto != 0) {
+    print("Cliente mais alto: Código $codigoMaisAlto, altura $alturaMaisAlto m");
+  }
+
+  if (codigoMaisBaixo != 0) {
+    print("Cliente mais baixo: Código $codigoMaisBaixo, altura $alturaMaisBaixo m");
+  }
+
+  if (codigoMaisGordo != 0) {
+    print("Cliente mais gordo: Código $codigoMaisGordo, peso $pesoMaisGordo kg");
+  }
+
+  if (codigoMaisMagro != 0) {
+    print("Cliente mais magro: Código $codigoMaisMagro, peso $pesoMaisMagro kg");
+  }
+
+  if (codigoMaisAlto == 0 && codigoMaisBaixo == 0 && codigoMaisGordo == 0 && codigoMaisMagro == 0) {
+    print("Nenhum cliente registrado.");
+    return;
+  }
+
+  mediaAltura /= contador;
+  mediaPeso /= contador;
+
+  print("Média de altura de todos os clientes: ${mediaAltura.toStringAsFixed(2)} m");
+  print("Média de peso de todos os clientes: ${mediaPeso.toStringAsFixed(2)} kg");
+  
+  }
