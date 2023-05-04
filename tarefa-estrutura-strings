@@ -1,0 +1,24 @@
+import 'dart:io';
+void main() {
+  print("Escreva a primeira string:");
+  String? string1 = stdin.readLineSync();
+  
+  print("Escreva a segunda string:");
+  String? string2 = stdin.readLineSync();
+
+  print("Tamanho de \"$string1\": ${string1?.length ?? 0} caracteres");
+  print("Tamanho de \"$string2\": ${string2?.length ?? 0} caracteres");
+
+  if (string1?.length == string2?.length) {
+    print("As duas strings são de Tamanhos iguais");
+  } else {
+    print("As duas strings são de Tamanhos diferentes");
+  }
+
+  if (string1 == string2) {
+    print("As duas strings possuem conteúdo igual");
+  } else {
+    print("As duas strings possuem conteúdo diferente");
+  }
+
+}
