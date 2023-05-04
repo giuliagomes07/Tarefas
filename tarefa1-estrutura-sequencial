@@ -1,0 +1,33 @@
+import 'dart:io';
+
+void main() {
+  print("Escreva seu sexo: \n1 para Mulher\n2 para Homem ");
+  int? sexo;
+  while (sexo != 1 && sexo != 2) {
+    sexo = int.tryParse(stdin.readLineSync()!) ?? 0;
+
+    if (sexo != 1 && sexo != 2) {
+      print("Sexo inválido. Por favor, Escreva '1' para Mulher ou '2' para Homem.");
+    }
+  }
+
+  double? h;
+  while (h == null || h <= 0) {
+    print("Escreva sua altura (em metros): ");
+    h = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+
+    if (h <= 0) {
+      print("Altura inválida. Por favor, Escreva um valor positivo e maior que zero.");
+    }
+  }
+
+  double pesoIdeal;
+  if (sexo == 1) {
+    pesoIdeal = (62.1 * h) - 44.7;
+    print("Seu peso ideal é ${pesoIdeal.toStringAsFixed(2)} kg");
+  } else if (sexo == 2) {
+    pesoIdeal = (72.7 * h) - 58;
+    print("Seu peso ideal é ${pesoIdeal.toStringAsFixed(2)} kg");
+  }
+}
+
