@@ -1,0 +1,102 @@
+import 'dart:math';
+
+class Vetor {
+  List<double> _valores = List.filled(5, 0);
+
+  void alimentarVetor(List<double> valores) {
+    for (int i = 0; i < _valores.length; i++) {
+      _valores[i] = valores[i];
+    }
+  }
+
+  void mostrarValores() {
+    print('Valores do vetor: $_valores');
+  }
+
+  void mostrarParteInteira() {
+    print('Parte inteira dos valores:');
+    for (int i = 0; i < _valores.length; i++) {
+      print(_valores[i].toInt());
+    }
+  }
+
+  void multiplicarPorInteiro(int multiplicador) {
+    for (int i = 0; i < _valores.length; i++) {
+      _valores[i] *= multiplicador;
+    }
+  }
+}
+
+class Matriz {
+  List<List<int>> _valores = List.generate(
+      3, (i) => List.generate(4, (j) => 0));
+
+  void alimentarMatriz() {
+    int valor = 0;
+    for (int i = 0; i < _valores.length; i++) {
+      for (int j = 0; j < _valores[i].length; j++) {
+        _valores[i][j] = valor++;
+      }
+    }
+  }
+
+  int somarValores() {
+    int soma = 0;
+    for (int i = 0; i < _valores.length; i++) {
+      for (int j = 0; j < _valores[i].length; j++) {
+        soma += _valores[i][j];
+      }
+    }
+    return soma;
+  }
+
+  void mostrarMaiorEMenorValor() {
+    int menor = _valores[0][0];
+    int maior = _valores[0][0];
+    for (int i = 0; i < _valores.length; i++) {
+      for (int j = 0; j < _valores[i].length; j++) {
+        if (_valores[i][j] < menor) {
+          menor = _valores[i][j];
+        }
+        if (_valores[i][j] > maior) {
+          maior = _valores[i][j];
+        }
+      }
+    }
+    print('Menor valor: $menor');
+    print('Maior valor: $maior');
+  }
+
+  double calcularMedia() {
+    double soma = somarValores().toDouble();
+    int quantidade = _valores.length * _valores[0].length;
+    return soma / quantidade;
+  }
+}
+
+class Pessoa {
+  String _nome;
+  String _endereco;
+  String _telefone;
+  int _idade;
+  double _altura;
+
+  Pessoa(this._nome, this._endereco, this._telefone, this._idade, this._altura);
+
+  void imprimirMensagem() {
+    print('Nome: $_nome');
+    print('Endereço: $_endereco');
+    print('Telefone: $_telefone');
+    print('Idade: $_idade');
+    print('Altura: $_altura');
+  }
+}
+
+void main() {
+  
+  var vetor = Vetor();
+  vetor.alimentarVetor([1.5, 2.7, 3.8, 4.2, 5.9]);
+  vetor.mostrarValores();
+  vetor.mostrarParteInteira();
+  vetor.multiplicarPorInteiro(1);
+}
