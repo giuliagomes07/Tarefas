@@ -1,0 +1,25 @@
+import 'dart:math';
+
+void main() {
+
+  final int N = 100;
+
+
+  List<int> resultados = List.filled(6, 0);
+
+ 
+  int lancarDado() {
+    return Random().nextInt(6) + 1;
+  }
+
+  
+  for (int i = 0; i < N; i++) {
+    int resultado = lancarDado();
+    resultados[resultado-1]++;
+  }
+
+ 
+  for (int i = 0; i < 6; i++) {
+    print("O valor ${i+1} foi conseguido ${resultados[i]} vezes.");
+  }
+}
