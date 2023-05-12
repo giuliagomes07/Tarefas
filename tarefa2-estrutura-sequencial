@@ -1,0 +1,40 @@
+import 'dart:io';
+
+void main() {
+  const double limitePeso = 50.0;
+  const double valorMulta = 4.0;
+
+  double peso = 0.0;
+  bool pesoValido = false;
+
+  while (!pesoValido) {
+    stdout.write('Escreva o peso dos peixes em quilos: ');
+
+    try {
+      peso = double.parse(stdin.readLineSync()!);
+      if (peso <= 0.0) {
+        print('O peso dos peixes deve ser maior que zero!');
+      } else {
+        pesoValido = true;
+      }
+    } catch (exception) {
+      print('Inválido, escreva um valor numérico para o peso dos peixes!');
+    }
+  }
+
+  double excesso = 0.0;
+  double multa = 0.0;
+
+  if (peso > limitePeso) {
+    excesso = peso - limitePeso;
+    multa = excesso * valorMulta;
+  }
+
+  
+  if (excesso > 0.0) {
+    print('Excesso de peso: ${excesso.toStringAsFixed(2)} kg');
+    print('O valor da multa que será cobrado é de: R\$ ${multa.toStringAsFixed(2)}');
+  } else {
+    print('O peso está dentro do limite permitido.');
+  }
+}
