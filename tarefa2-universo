@@ -1,0 +1,87 @@
+import 'dart:io';
+
+class corpoCeleste {
+  double massa;
+  double tamanho;
+  String nome;
+  
+
+  corpoCeleste(this.massa, this.tamanho, this.nome);
+  
+  double getMassa() {
+    return massa;
+  }
+
+  void setMassa(double novaMassa) {
+    massa = novaMassa;
+  }
+
+  double getTamanho() {
+    return tamanho;
+  }
+
+   void setTamanho(double novoTamanho) {
+    tamanho = novoTamanho;
+  }
+  String getNome() {
+    return nome;
+  }
+
+   void setNome(String novoNome) {
+    nome = novoNome;
+  }
+}
+
+void main() {
+  int asteroides = 0;
+  int planetas = 0;
+  int nebulosas = 0;
+
+  List<corpoCeleste> corpoCelestes = [];
+
+  for (int i = 0; i < 6; i++) {
+    print("Corpo celeste ${i + 1}:");
+    print("Nome: ");
+    String nome = stdin.readLineSync()!;
+
+    print("Tipo (asteroide, planeta ou nebulosa): ");
+    String tipo = stdin.readLineSync()!.toLowerCase();
+
+  
+    if (tipo != 'asteroide' && tipo != 'planeta' && tipo != 'nebulosa') {
+      print("Tipo inválido. Definindo como asteroide.");
+      tipo = 'asteroide';
+    }
+
+    print("Massa: ");
+    double massa = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+
+    print("Tamanho: ");
+    double tamanho = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+    
+
+
+    corpoCeleste novoCorpoCeleste = corpoCeleste(massa, tamanho, nome);
+   
+   
+
+    switch (tipo) {
+      case 'asteroide':
+        asteroides++;
+        break;
+      case 'planeta':
+        planetas++;
+        break;
+      case 'nebulosa':
+        nebulosas++;
+        break;
+    
+     }
+  }
+
+  print("Quantidade de asteroides: $asteroides");
+  print("Quantidade de planetas: $planetas");
+  print("Quantidade de nebulosas: $nebulosas");
+  
+  }
+  
