@@ -1,0 +1,58 @@
+import 'dart:io';
+
+class Triangulo {
+  double base;
+  double altura;
+ 
+
+  Triangulo(this.base, this.altura, );
+
+  double calcularArea() {
+    return (base * altura) / 2;
+  }
+
+  void exibirDados() {
+    print('Base: $base');
+    print('Altura: $altura');
+    print('Área: ${calcularArea()}');
+  }
+}
+
+void main() {
+  double? base;
+  double? altura;
+
+  while (base == null) {
+    print('Escreva a base do triângulo:');
+    String? input = stdin.readLineSync();
+    if (input == null || input.isEmpty) {
+      print('Valor inválido. Tente novamente.');
+    } else {
+      base = double.tryParse(input);
+      if (base == null) {
+        print('Valor inválido. Tente novamente.');
+      }
+    }
+  }
+
+  while (altura == null) {
+    print('Digite a altura do triângulo:');
+    String? input = stdin.readLineSync();
+    if (input == null || input.isEmpty) {
+      print('Valor inválido. Tente novamente.');
+    } else {
+      altura = double.tryParse(input);
+      if (altura == null) {
+        print('Valor inválido. Tente novamente.');
+      }
+    }
+  }
+
+  if (base <= 0 || altura <= 0) {
+    print('Os valores de base e altura devem ser positivos e não nulos.');
+    return;
+  }
+
+  Triangulo triangulo = Triangulo(base, altura);
+  triangulo.exibirDados();
+}
