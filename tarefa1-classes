@@ -1,0 +1,93 @@
+import 'dart:io';
+
+class Retangulo {
+  double ladoA;
+  double ladoB;
+
+  Retangulo(this.ladoA, this.ladoB);
+
+  void mudarLados(double novoLadoA, double novoLadoB) {
+    ladoA = novoLadoA;
+    ladoB = novoLadoB;
+  }
+
+  double calcularArea() {
+    return ladoA * ladoB;
+  }
+
+  double calcularPerimetro() {
+    return 2 * (ladoA + ladoB);
+  }
+
+  List<double> calcularQuantidadePisosERodapes(double medidaPiso, double medidaRodape) {
+    double area = calcularArea();
+    double perimetro = calcularPerimetro();
+    double quantidadePisos = area / medidaPiso;
+    double quantidadeRodapes = perimetro / medidaRodape;
+
+    return [quantidadePisos, quantidadeRodapes];
+  }
+}
+
+class ValoresLados {
+  double _ladoA;
+  double _ladoB;
+
+  ValoresLados(this._ladoA, this._ladoB);
+
+  double getLadoA() {
+    return _ladoA;
+  }
+
+  double getLadoB() {
+    return _ladoB;
+  }
+}
+
+double lerDouble(String prompt) {
+  double? valor;
+  do {
+    stdout.write(prompt);
+    try {
+      valor = double.parse(stdin.readLineSync()!);
+      if (valor == null || valor.isNaN) {
+        throw Exception();
+      }
+    } catch (e) {
+      valor = null;
+      print('Inválido, por favor, escreva um valor numérico válido.');
+    }
+  } while (valor == null);
+  return valor;
+}
+
+void main() {
+  print('Informe as medidas do local');
+  double ladoA = lerDouble('Eixo X: ');
+  double ladoB = lerDouble('Eixo Y: ');
+
+  Retangulo local = Retangulo(ladoA, ladoB);
+  
+
+  String mudarLados = '';
+  while (mudarLados != 'n') {
+    print('As medidas atuais são: ${local.ladoA} x ${local.ladoB}');
+    print('Deseja mudar os valores dos lados? (s/n): ');
+    String? mudarLados = stdin.readLineSync();
+    if (mudarLados == 's') {
+      double novoLadoA = lerDouble('Novo valor para o lado A: ');
+      double novoLadoB = lerDouble('Novo valor para o lado B: ');
+      local.mudarLados(novoLadoA, novoLadoB);
+    } else {
+      break;
+    }
+  }
+
+  double medidaPiso = lerDouble('Medida do piso: ');
+  double medidaRodape = lerDouble('Medida do rodapé: ');
+
+  List<double> quantidades = local.calcularQuantidadePisosERodapes(medidaPiso, medidaRodape);
+
+  print('Quantidade de pisos necessários: ${quantidades[0]}');
+  print('Quantidade de rodapés necessários: ${quantidades[1]}');
+}
