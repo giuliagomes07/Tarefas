@@ -1,0 +1,135 @@
+import 'dart:io';
+
+class BombaCombustivel {
+    String tipoCombustivel;
+    double valorLitro;
+    double quantidadeCombustivel;
+
+    BombaCombustivel(this.tipoCombustivel, this.valorLitro, this.quantidadeCombustivel);
+
+    void abastecerPorValor(double valorAbastecido) {
+        double litrosAbastecidos = valorAbastecido / valorLitro;
+        if (litrosAbastecidos <= quantidadeCombustivel) {
+            quantidadeCombustivel -= litrosAbastecidos;
+            print('Abastecidos $litrosAbastecidos litros de $tipoCombustivel por R\$$valorAbastecido');
+        } else {
+            print('Desculpe, não há combustível suficiente na bomba para abastecer esse valor');
+        }
+        alterarQuantidadeCombustivel(quantidadeCombustivel);
+    }
+
+    void abastecerPorLitro(double litrosAbastecidos) {
+        double valorAbastecido = litrosAbastecidos * valorLitro;
+        if (litrosAbastecidos <= quantidadeCombustivel) {
+            quantidadeCombustivel -= litrosAbastecidos;
+            print('Abastecidos $litrosAbastecidos litros de $tipoCombustivel por R\$$valorAbastecido');
+        } else {
+            print('Desculpe, não há combustível suficiente na bomba para abastecer essa quantidade');
+        }
+        alterarQuantidadeCombustivel(quantidadeCombustivel);
+    }
+
+    void alterarValor(double novoValor) {
+        valorLitro = novoValor;
+        print('O valor do litro de $tipoCombustivel agora é R\$$valorLitro');
+    }
+
+    void alterarCombustivel(String novoCombustivel) {
+        tipoCombustivel = novoCombustivel;
+        alterarQuantidadeCombustivel(500);
+        print('A bomba agora está abastecida com 500l de $tipoCombustivel');
+    }
+
+    void alterarQuantidadeCombustivel(double novaQuantidade) {
+        quantidadeCombustivel = novaQuantidade;
+        print('A quantidade de $tipoCombustivel na bomba agora é de $quantidadeCombustivel litros');
+    }
+
+}
+
+void main() {
+    print('Bem-vindo ao posto de combustível!\n');
+    var bomba1 = BombaCombustivel('Gasolina', 5.50, 500);
+    print('A bomba contém 500l de Combustivel está sendo vendidos a R\$ 5.50\n');
+    
+    while(true) {
+        print('Digite 1 para abastecer por valor ou 2 para abastecer por litro:');
+        int escolha = int.parse(stdin.readLineSync()!);
+        
+         if (escolha >= 0) { 
+              
+            } else {
+                print('Por favor tente novamente usando um valor válido');
+            }
+    
+        if (escolha == 1) {
+            print('Digite o valor a ser abastecido:');
+            double valorAbastecido = double.tryParse(stdin.readLineSync()!) ?? -1;
+            if (valorAbastecido >= 0) { 
+                bomba1.abastecerPorValor(valorAbastecido);
+            } else {
+                print('Por favor tente novamente usando um valor válido');
+            }
+        } else if (escolha == 2) {
+            print('Digite a quantidade de litros a ser abastecida:');
+            double litrosAbastecidos = double.tryParse(stdin.readLineSync()!) ?? -1;
+             if (litrosAbastecidos >= 0) { 
+                bomba1.abastecerPorLitro(litrosAbastecidos);
+            } else {
+                print('Por favor tente novamente usando um valor válido');
+            }
+
+        } else {
+            print('Opção inválida');
+            continue;
+        }
+
+        print('Deseja abastecer novamente? Digite 1 para sim e 2 para não');
+        int novaEscolha = int.parse(stdin.readLineSync()!);
+         if (novaEscolha >= 0) { 
+
+            } else {
+                print('Por favor tente novamente usando um valor válido');
+            }
+        if (novaEscolha == 2) {
+          print('Obrigado por usar nossos serviços!');
+            break;
+        } else if (novaEscolha != 1) {
+            print('Opção inválida');
+            continue;
+        }
+ 
+        print('Deseja alterar algo? Digite 1 para sim e 2 para não');
+        int alterarEscolha = int.parse(stdin.readLineSync()!);
+        if (alterarEscolha == 1) {
+            print('Digite 1 para alterar o valor ou 2 para alterar o tipo de combustível:');
+            int opcaoEscolhida = int.parse(stdin.readLineSync()!);
+            if (opcaoEscolhida == 1) {
+                print('Digite o novo valor do combustível:');
+                double novoValor = double.parse(stdin.readLineSync()!);
+                 if (novoValor >= 0) { 
+                     bomba1.alterarValor(novoValor);
+            } else {
+                print('Por favor tente novamente usando um valor válido');
+            }
+           
+            } else if (opcaoEscolhida == 2) {
+                print('Digite o novo tipo de combustível:');
+                String novoCombustivel = stdin.readLineSync()!;
+            
+                bomba1.alterarCombustivel(novoCombustivel);
+            
+               
+            } else {
+                print('Opção inválida');
+            }
+             
+        }
+    }
+}
+
+
+ 
+
+
+
