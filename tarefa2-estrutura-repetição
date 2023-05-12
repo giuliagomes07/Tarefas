@@ -1,0 +1,48 @@
+import 'dart:io';
+
+void main() {
+  int quantidadeDePessoas = 0;
+  int somaDasIdades = 0;
+
+  while (quantidadeDePessoas <= 0) {
+    stdout.write('Escreva a quantidade de pessoas na turma: ');
+
+    try {
+      quantidadeDePessoas = int.parse(stdin.readLineSync()!);
+      if (quantidadeDePessoas <= 0) {
+        print('Inválido, por favor escreva uma quantidade de pessoas maior que zero!');
+      }
+    } catch (exception) {
+      print('Inválido, escreva somente número inteiro para a quantidade de pessoas!');
+    }
+  }
+
+  for (int i = 1; i <= quantidadeDePessoas; i++) {
+    int idade = 0;
+
+    while (idade <= 0) {
+      stdout.write('Escreva a idade da $i° pessoa: ');
+
+      try {
+        idade = int.parse(stdin.readLineSync()!);
+        if (idade <= 0) {
+          print('Inválido, por favor escreva uma idade maior que zero!');
+        }
+      } catch (exception) {
+        print('Inválido, escreva um número inteiro para a idade!');
+      }
+    }
+
+    somaDasIdades += idade;
+  }
+
+  double mediaDeIdade = somaDasIdades / quantidadeDePessoas;
+
+  if (mediaDeIdade >= 0 && mediaDeIdade <= 25) {
+    print('A turma é jovem!');
+  } else if (mediaDeIdade >= 26 && mediaDeIdade <= 60) {
+    print('A turma é adulta!');
+  } else {
+    print('A turma é idosa!');
+  }
+}
