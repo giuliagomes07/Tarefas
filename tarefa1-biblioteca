@@ -1,0 +1,97 @@
+
+import 'dart:io';
+
+class Livro {
+  String titulo;
+  String isbn;
+  int quantidadePaginas;
+
+  Livro(this.titulo, this.isbn, this.quantidadePaginas);
+
+  void exibirDados() {
+    print('Título: $titulo');
+    print('ISBN: $isbn');
+    print('Quantidade de páginas: $quantidadePaginas');
+  }
+}
+
+void main() {
+  List<Livro> livros = [];
+
+  while (true) {
+    
+    print('BIBLIOTECA - MENU');
+    
+    print('1. Incluir novo livro');
+    print('2. Consultar dados de um livro');
+    print('3. Mostrar livro com a maior quantidade de páginas');
+    print('4. Motrar livro com a menor quantidade de páginas');
+    print('5. Fechar');
+
+    String opcao = stdin.readLineSync()!;
+
+    if (opcao == '1') {
+      print('Digite o título do livro:');
+      String titulo = stdin.readLineSync()!;
+      
+      print('Digite o ISBN do livro:');
+      String isbn = stdin.readLineSync()!;
+      
+      print('Digite a quantidade de páginas do livro:');
+      int qtdPaginas = int.parse(stdin.readLineSync()!);
+      
+      Livro novoLivro = Livro(titulo, isbn, qtdPaginas);
+      livros.add(novoLivro);
+
+      print('Livro cadastrado com sucesso!');
+    } else if (opcao == '2') {
+      if (livros.isEmpty) {
+        print('Não há livros cadastrados.');
+      } else {
+        print('Digite o índice do livro:');
+        int indice = int.tryParse(stdin.readLineSync()!) ?? -1;
+        
+        if (indice >= 0 && indice < livros.length) {
+          Livro livroSelecionado = livros[indice];
+          livroSelecionado.exibirDados();
+        } else {
+          print('Índice inválido.');
+        }
+      }
+    } else if (opcao == '3') {
+      if (livros.isEmpty) {
+        print('Não há livros cadastrados.');
+      } else {
+        Livro livroMaiorQtdPaginas = livros[0];
+
+        for (Livro livro in livros) {
+          if (livro.quantidadePaginas > livroMaiorQtdPaginas.quantidadePaginas) {
+            livroMaiorQtdPaginas = livro;
+          }
+        }
+
+        print('Livro com a maior quantidade de páginas:');
+        livroMaiorQtdPaginas.exibirDados();
+      }
+    } else if (opcao == '4') {
+      if (livros.isEmpty) {
+        print('Não há livros cadastrados.');
+      } else {
+        Livro livroMenorQtdPaginas = livros[0];
+
+        for (Livro livro in livros) {
+          if (livro.quantidadePaginas < livroMenorQtdPaginas.quantidadePaginas) {
+            livroMenorQtdPaginas = livro;
+          }
+        }
+
+        print('Livro com a menor quantidade de páginas:');
+        livroMenorQtdPaginas.exibirDados();
+      }
+    } else if (opcao == '5') {
+      break;
+    } else {
+      print('Inválido!');
+    }
+  }
+}
