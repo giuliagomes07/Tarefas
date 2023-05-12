@@ -1,0 +1,71 @@
+class Compra {
+  double preco;
+  int parcelas;
+  String tipo;
+
+  Compra(this.preco, this.parcelas, this.tipo);
+
+  void pagarParcela() {
+    parcelas--;
+  }
+
+  void quitarCompra() {
+    parcelas = 0;
+  }
+
+  void cancelarCompra() {
+    print('Compra cancelada');
+    parcelas = 0;
+  }
+
+  void atualizarParcela(double juros, int qtdParcelas) {
+    double precoFinal = preco + preco * juros * qtdParcelas;
+    preco = precoFinal;
+    parcelas = qtdParcelas;
+  }
+}
+
+class ContaEstudante extends Compra {
+  ContaEstudante(double preco, int parcelas, String tipo) : super(preco, parcelas, tipo);
+
+  @override
+  void pagarParcela() {
+    parcelas--;
+  }
+
+  @override
+  void quitarCompra() {
+    parcelas = 0;
+  }
+}
+
+void imprimirValores(dynamic obj) {
+  if (obj is Compra) {
+    double precoTotal = obj.preco * obj.parcelas;
+    int parcelasTotal = obj.parcelas;
+    print('Preço total: $precoTotal');
+    print('Número de parcelas total: $parcelasTotal');
+  } else if (obj is ContaEstudante) {
+    double precoTotal = (obj.preco * obj.parcelas) / 2;
+    int parcelasTotal = obj.parcelas ~/ 2;
+    print('Preço total: $precoTotal');
+    print('Número de parcelas total: $parcelasTotal');
+  }
+}
+
+void main() {
+  Compra compra = Compra(1000, 10, 'eletrônico');
+  ContaEstudante contaEstudante = ContaEstudante(500, 5, 'livros');
+  
+  compra.pagarParcela();
+  compra.quitarCompra();
+  compra.cancelarCompra();
+  compra.atualizarParcela(0.1, 12);
+  
+  contaEstudante.pagarParcela();
+  contaEstudante.quitarCompra();
+  
+  imprimirValores(compra);
+  imprimirValores(contaEstudante);
+}
+  
