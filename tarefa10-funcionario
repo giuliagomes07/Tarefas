@@ -1,0 +1,85 @@
+import 'dart:io';
+
+class Funcionario {
+  String nome;
+  String cpf;
+  double salario;
+  
+  Funcionario(this.nome, this.cpf, this.salario);
+  
+  double calcularBonificacao() {
+    return 0.0;
+  }
+  
+  void adicionarBonificacao(Funcionario funcionario) {
+    double bonificacao = funcionario.calcularBonificacao();
+    this.salario += bonificacao;
+  }
+  
+  static Funcionario lerDadosFuncionario() {
+  print("Digite o nome do funcionário:");
+  String nome = stdin.readLineSync()!; 
+  
+  
+  while (nome.isEmpty || nome.contains(new RegExp(r'[0-9]')));
+  print("Digite o CPF do funcionário:");
+  String cpf = stdin.readLineSync()!;
+  
+  double salario = 0.0;
+  bool salarioValido = false;
+  
+  while (!salarioValido) {
+    print("Digite o salário do funcionário:");
+    String salarioStr = stdin.readLineSync()!;
+    salario = double.tryParse(salarioStr) ?? 0.0;
+    
+    if (salario <= 0) {
+      print("Salário inválido. Digite um valor positivo maior que zero.");
+    } else {
+      salarioValido = true;
+    }
+  }
+  
+  return Funcionario(nome, cpf, salario);
+}
+}
+
+class Gerente extends Funcionario {
+  double senhaEspecial;
+  int quantidadeFuncionarios;
+  
+  Gerente(String nome, String cpf, double salario, this.senhaEspecial, this.quantidadeFuncionarios) 
+    : super(nome, cpf, salario);
+  
+  @override
+  double calcularBonificacao() {
+    return this.salario * 0.10;
+  }
+}
+
+class Engenheiro extends Funcionario {
+  String crea;
+  String categoria;
+  String projetoAtual;
+  
+  Engenheiro(String nome, String cpf, double salario, this.crea, this.categoria, this.projetoAtual)
+    : super(nome, cpf, salario);
+  
+  @override
+  double calcularBonificacao() {
+    return this.salario * 0.05;
+  }
+}
+
+void main() {
+  Funcionario funcionario = Funcionario.lerDadosFuncionario();
+  Gerente gerente = Gerente("Gerente", "00000000000", 10000.0, 123456, 10);
+  Engenheiro engenheiro = Engenheiro("Engenheiro", "11111111111", 8000.0, "123456789", "Categoria A", "Projeto X");
+  
+  gerente.adicionarBonificacao(funcionario);
+  engenheiro.adicionarBonificacao(funcionario);
+  
+  print("Salário atual do funcionário: ${funcionario.salario}");
+  print("Salário atual do gerente: ${gerente.salario}");
+  print("Salário atual do engenheiro: ${engenheiro.salario}");
+}
