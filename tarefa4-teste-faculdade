@@ -1,0 +1,129 @@
+
+import 'dart:math';
+
+class Matriz {
+  List<List<int>> matriz = List.generate(
+      3, (i) => List.generate(4, (j) => 0, growable: false),
+      growable: false);
+
+  void alimentarMatriz() {
+    int valor = 0;
+    for (int i = 0; i < matriz.length; i++) {
+      for (int j = 0; j < matriz[i].length; j++) {
+        matriz[i][j] = valor;
+        valor++;
+        if (valor > 50) {
+          break;
+        }
+      }
+    }
+  }
+
+  int somar() {
+    int soma = 0;
+    for (int i = 0; i < matriz.length; i++) {
+      for (int j = 0; j < matriz[i].length; j++) {
+        soma += matriz[i][j];
+      }
+    }
+    return soma;
+  }
+
+  void mostrarMenorMaior() {
+    int menor = matriz[0][0];
+    int maior = matriz[0][0];
+    for (int i = 0; i < matriz.length; i++) {
+      for (int j = 0; j < matriz[i].length; j++) {
+        if (matriz[i][j] < menor) {
+          menor = matriz[i][j];
+        }
+        if (matriz[i][j] > maior) {
+          maior = matriz[i][j];
+        }
+      }
+    }
+    print('Menor valor: $menor');
+    print('Maior valor : $maior');
+  }
+
+  double calcularMedia() {
+    int soma = somar();
+    int quantidade = matriz.length * matriz[0].length;
+    return soma / quantidade;
+  }
+
+  void mostrarMatriz() {
+    String matrizString = '[';
+    for (int i = 0; i < matriz.length; i++) {
+      String linhaString = matriz[i].toString();
+      matrizString += linhaString;
+    }
+    matrizString += ']';
+    print(matrizString);
+  }
+}
+
+class Pessoa {
+  String nome;
+  String endereco;
+  String telefone;
+  int idade;
+  double altura;
+
+  Pessoa(this.nome, this.endereco, this.telefone, this.idade, this.altura);
+
+  void imprimirMensagem() {
+      print('Nome: $nome');
+      print('Endereço: $endereco');
+      print('Telefone: $telefone');
+      print('Idade: $idade');
+      print('Altura: $altura');
+    }
+}
+
+class Vetor {
+  List<double> vetor = List.filled(5, 0.0);
+
+  void alimentarMatriz() {
+    for (int i = 0; i < vetor.length; i++) {
+      double numeroAleatorio =
+          double.parse((Random().nextDouble() * 100).toStringAsFixed(2));
+      vetor[i] = numeroAleatorio;
+    }
+  }
+
+  void mostrar() {
+    print(vetor);
+  }
+
+  void mostrarParteInteira() {
+    print(vetor.map((v) => v.toInt()).toList());
+  }
+
+  void multiplicarPorInteiro(int n) {
+    print(vetor.map((v) => v * n).toList());
+  }
+}
+
+void main() {
+  Matriz matriz = Matriz();
+  print("\n------------");
+  matriz.alimentarMatriz();
+  print("Matriz gerada:");
+  matriz.mostrarMatriz();
+  print("Soma : ${matriz.somar()}");
+  matriz.mostrarMenorMaior();
+  print("Media: ${matriz.calcularMedia()}");
+  Vetor vetor = Vetor();
+  print("\n-------------");
+  vetor.alimentarMatriz();
+  print("Vetor em float:");
+  vetor.mostrar();
+  print("Vetor em inteiro:");
+  vetor.mostrarParteInteira();
+  print("Multiplicando inteiro:");
+  vetor.multiplicarPorInteiro(2);
+  print("\n-------------");
+  Pessoa pessoa = Pessoa('Cangueiro', 'Ilha da juventude', '11 992885722', 20, 1.68);
+  pessoa.imprimirMensagem();
+}
