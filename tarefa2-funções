@@ -1,0 +1,36 @@
+import 'dart:io';
+
+void imprimirLinhas(int n) {
+  for (int linha = 1; linha <= n; linha++) {
+    for (int coluna = 1; coluna <= linha; coluna++) {
+      stdout.write("$coluna ");
+    }
+    print("");
+  }
+}
+
+void main() {
+  int? n;
+
+  while (n == null || n < 1) {
+    stdout.write("Ecreva um número inteiro positivo: ");
+    String? input = stdin.readLineSync();
+
+    if (input == null || input.isEmpty) {
+      print("Inválido, escreva novamente.");
+      continue;
+    }
+
+    try {
+      n = int.parse(input);
+
+      if (n < 1) {
+        print("Inválido, escreva novamente.");
+      }
+    } catch (exception) {
+      print("Inválido, escreva novamente.");
+    }
+  }
+
+  imprimirLinhas(n);
+}
