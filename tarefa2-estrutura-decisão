@@ -1,0 +1,98 @@
+import 'dart:io';
+
+void main() {
+  double num1, num2;
+  int operacao;
+
+  while (true) {
+    
+    stdout.write('Escreva o primeiro número: ');
+    String? input = stdin.readLineSync();
+    if (input == null) {
+      print('Inválido, escreva novamente!');
+      continue;
+    }
+    try {
+      num1 = double.parse(input);
+      break;
+    } catch (e) {
+      print('Inválido, escreva novamente!');
+    }
+  }
+
+  while (true) {
+    
+    stdout.write('Escreva o segundo número: ');
+    String? input = stdin.readLineSync();
+    if (input == null) {
+      print('Inválido, escreva novamente!');
+      continue;
+    }
+    try {
+      num2 = double.parse(input);
+      break;
+    } catch (e) {
+      print('Inválido, escreva novamente!');
+    }
+  }
+
+  while (true) {
+    
+    print('Escreva a operação você deseja realizar?');
+    print('1  Soma');
+    print('2  Subtração');
+    print('3  Multiplicação');
+    print('4  Divisão');
+
+    String? input = stdin.readLineSync();
+    if (input == null) {
+      print('Inválido, escreva novamente!');
+      continue;
+    }
+    try {
+      operacao = int.parse(input);
+      if (operacao < 1 || operacao > 4) {
+        print('Inválido, escreva novamente!');
+        continue;
+      }
+      break;
+    } catch (e) {
+      print('Inválido, escreva novamente!');
+    }
+  }
+
+  double resultado;
+  String mensagem = '';
+  switch (operacao) {
+    case 1:
+      resultado = num1 + num2;
+      mensagem = 'A soma dos números é: ';
+      break;
+    case 2:
+      resultado = num1 - num2;
+      mensagem = 'A subtração dos números é: ';
+      break;
+    case 3:
+      resultado = num1 * num2;
+      mensagem = 'A multiplicação dos números é: ';
+      break;
+    case 4:
+      resultado = num1 / num2;
+      mensagem = 'A divisão dos números é: ';
+      break;
+    default:
+      print('Inválido!');
+      return;
+  }
+
+  
+  print('$mensagem $resultado');
+  print('O resultado é ${resultado % 2 == 0 ? 'par' : 'ímpar'}.');
+  
+ 
+print('O resultado é ${resultado >= 0 ? 'positivo' : 'negativo'}.');
+  
+ 
+print('O resultado é ${resultado.round() == resultado ? 'inteiro' : 'decimal'}.');
+}
+
