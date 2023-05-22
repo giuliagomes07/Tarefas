@@ -1,0 +1,103 @@
+import 'dart:io';
+
+class Visitante {
+  static const int VINTAGE = 1;
+  static const int NUMISMATICA = 2;
+  static const int HISTORIA_DA_MUSICA = 3;
+  static const int PINTURA = 4;
+  static const int ESCULTURAS = 5;
+
+  String nome;
+  String cpf;
+  DateTime dataNascimento;
+  int codTema;
+
+  Visitante(this.nome, this.cpf, this.dataNascimento, this.codTema);
+
+  @override
+  String toString() {
+    return 'Nome: $nome, CPF: $cpf, Data de Nascimento: ${dataNascimento.day}/${dataNascimento.month}/${dataNascimento.year}, Código do Tema: $codTema';
+  }
+
+  List<String> getTemasVisitados() {
+    List<String> temas = [];
+    switch (codTema) {
+      case VINTAGE:
+        temas.add('Vintage');
+        break;
+      case NUMISMATICA:
+        temas.add('Numismática');
+        break;
+      case HISTORIA_DA_MUSICA:
+        temas.add('História da Música');
+        break;
+      case PINTURA:
+        temas.add('Pinturas');
+        break;
+      case ESCULTURAS:
+        temas.add('Esculturas');
+        break;
+      default:
+        temas.add('Tema desconhecido');
+    }
+    return temas;
+  }
+}
+
+class VisitantePremium extends Visitante {
+  double saldo;
+  int numeroVale;
+
+  VisitantePremium(String nome, String cpf, DateTime dataNascimento, int codTema)
+      : saldo = 100.0,
+        numeroVale = 1,
+        super(nome, cpf, dataNascimento, codTema);
+
+  double gastarNaPraca(double valor) {
+    saldo = saldo - valor;
+    return saldo;
+  }
+
+  @override
+  String toString() {
+    return '${super.toString()}, Saldo: R\$$saldo, Número do Vale: $numeroVale';
+  }
+}
+
+void main() {
+  print("Menu dos Temas");
+  print("Vintage - cód = 1"); 
+  print("Numismática - cód = 2");
+  print("História da Música - cód = 3");
+  print("Pinturas - cód = 4");
+  print("Esculturas - cód = 5");
+
+ 
+  print('Digite "1" se o visitante é premium ou 2 para visitante comum:');
+  int escolha = int.tryParse(stdin.readLineSync()!) ?? -1;
+  
+  if (escolha == 1) {
+    var premium1 = VisitantePremium('Pamela', '123.895.476-51', DateTime(1992, 03, 15), Visitante.PINTURA);
+    print(premium1.toString());
+
+    print('Quanto o visitante premium 1 gastou?');
+    double valorGasto = double.tryParse(stdin.readLineSync()!) ?? -1;
+    if (valorGasto >= 0 && valorGasto <= 100) {
+      double valorRestante = premium1.gastarNaPraca(valorGasto);
+      print('Valor gasto: R\$$valorGasto, Saldo restante: R\$$valorRestante');
+    } else{
+      print("valor inválido");
+    }
+    print("Consulta encerrada. Obrigada!");
+  
+  } else if (escolha == 2) {
+    var visitante1 = Visitante('Davi', '561.526.348-02', DateTime(2000, 05, 26), Visitante.NUMISMATICA);
+    print(visitante1.toString());
+
+    var visitante2 = Visitante('Flavio', '215.753.468-72', DateTime(1995, 01, 02), Visitante.ESCULTURAS);
+    print(visitante2.toString());
+    print("Consulta encerrada. Obrigada!");
+  } else {
+    print("opção inválida");
+  }
+}
